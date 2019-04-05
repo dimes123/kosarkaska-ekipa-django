@@ -106,3 +106,6 @@ venv.bak/
 #virtual
 virtual
 .vscode
+
+#baze
+.sqlite3
