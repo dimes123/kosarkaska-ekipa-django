@@ -1,14 +1,11 @@
-# kosarkaska-ekipa-django
-Projektno delo pri predmetu PB2
-
-a# Baza za kosarkarsko ekipo
+# Baza za kosarkarsko ekipo
 
 Avtorja:
 * Blaž Dobravec
 * Dimitar Stoilkov
 
 
-Seminarska naloga pri predmetu **Podatkovne baze 1**
+Seminarska naloga pri predmetu **Podatkovne baze 2**
 
 ## Opis
 
