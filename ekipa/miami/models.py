@@ -11,7 +11,7 @@ class Igralec(models.Model):
     ime=models.CharField(max_length=200, help_text="Ime igralca")
     pozicija=models.CharField(max_length=200, choices=POZICIJE, help_text="Pozicija igralca")
     teza=models.PositiveSmallIntegerField(help_text="Teza igralca")
-    visina=models.PositiveSmallIntegerField(help_text="Višina igralca")
+    visina=models.CharField(max_length = 200, help_text="Višina igralca")
     letoRojstva=models.PositiveSmallIntegerField(help_text="Leto rojstva igralca")
 
     class Meta:
@@ -30,7 +30,7 @@ class Ekipa(models.Model):
         return '{}:{}'.format(self.kratica,self.ime)
 
 class Tekma(models.Model):
-    datum=models.DateField(help_text="Datum tekme")
+    datum=models.DateField(primary_key=True,help_text="Datum tekme", default = 2017-10-18)
     nasprotnik=models.ForeignKey('Ekipa', null=True,on_delete=models.SET_NULL, related_name="tekma_nasprotnik") 
     tockeEkipa=models.PositiveIntegerField(help_text="Točke ekipe")
     tockeNasportne=models.PositiveIntegerField(help_text="Točke nasportnika")
@@ -53,9 +53,4 @@ class Statistika(models.Model):
 
     class Meta:
         verbose_name_plural="Statistike"
-
-
-    
-
-
 
