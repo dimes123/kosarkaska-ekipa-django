@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4"style="text-align: center;">Miami Heat</h1>
+    <hr class="my-4">
+
+<p>
+Na voljo vam je {{ st_tekem }} tekem iz sezone 2017-18, v katerih je igrala košarkarska ekipa Miami Heat.
+</p>
+<p>
+Izbirate lahko med {{ st_igralcev }}-imi rednimi igralci v tej sezoni, kjer je za vsakega od njih statistika na vsaki od tekem.
+</p>
+</br>
+
+<h3 class="title is-5 is-spaced">Izbire:</h3>
+<br/>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group  mr-4" role="group" aria-label="First group">
+    <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Prikaži podatke o igralcih</a>
+  </div>
+  <div class="btn-group  mr-4" role="group" aria-label="Second group">
+    <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Prikaži podatke o ekipi</a>
+  </div>
+  <div class="btn-group  mr-4" role="group" aria-label="Third group">
+    <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Povprečja</a>
+  </div>
+  <div class="btn-group  mr-4" role="group" aria-label="Forth group">
+    <a class = "btn btn-secondary" href = "#">Najboljši igralec</a>
+  </div>
+  <div class="btn-group  mr-4" role="group" aria-label="Fifth group">
+    <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Dodajanje igralca</a>
+  </div>
+</div>
+</div>
+
+{% endblock %}

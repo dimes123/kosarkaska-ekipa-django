@@ -17,18 +17,13 @@ class Igralec(models.Model):
     teza = models.PositiveSmallIntegerField(help_text="Teža igralca")
     visina = models.CharField(max_length=200, help_text="Višina igralca")
     leto_rojstva = models.PositiveSmallIntegerField(help_text="Leto rojstva igralca")
+    slika = models.ImageField(upload_to="igralci/", default="igralci/missing.jpg")
 
     class Meta:
         verbose_name_plural = 'igralci'
 
     def __str__(self):
         return '{}:{}'.format(self.ime, self.stevilka)
-
-# igralec = Igralec()
-# if igralec.pozicija == igralec.SMALL_GUARD:
-#     ...
-# if igralec.pozicija == 'SF':
-#     ...
 
 
 class Ekipa(models.Model):
@@ -42,13 +37,6 @@ class Ekipa(models.Model):
     def __str__(self):
         return '{}:{}'.format(self.kratica, self.ime)
 
-
-class Clanstvo(models.Model):
-    oseba = ...
-    ekipa = ...
-    od = ...
-    do = ...
-    stevilka_dresa = ...
 
 
 class Tekma(models.Model):

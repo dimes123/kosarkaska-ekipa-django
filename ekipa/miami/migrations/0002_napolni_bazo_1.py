@@ -23,7 +23,8 @@ def napolni_bazo(apps, schema_editor):
                 pozicija=podatki.pop('Pos'),
                 visina=podatki.pop('Ht'),
                 teza=int(podatki.pop('Wt')),
-                leto_rojstva=int(podatki.pop('Year'))
+                leto_rojstva=int(podatki.pop('Year')),
+                slika=str(podatki.pop('Picture')),
             )
             assert podatki == {}
 
@@ -33,7 +34,7 @@ def napolni_bazo(apps, schema_editor):
             Ekipa.objects.create(
                         kratica=podatki.pop('Tag'),
                         trener=podatki.pop('Trainer'),
-                        ime=podatki.pop('Franchise')
+                        ime=podatki.pop('Franchise'),
             )
 
     print("Procesiram tekme")
@@ -44,7 +45,7 @@ def napolni_bazo(apps, schema_editor):
                 datum=podatki.pop('Date'),
                 nasprotnik=nasprotnik,
                 tocke_ekipa=podatki.pop('PointsTeam'),
-                tocke_nasprotne=podatki.pop('PointsOpponent')
+                tocke_nasprotne=podatki.pop('PointsOpponent'),
                 )
     
     with open(STATISTIKA_CSV, encoding='utf-8') as f:
@@ -57,7 +58,7 @@ def napolni_bazo(apps, schema_editor):
                 skoki=podatki.pop('TRB'),
                 podaje=podatki.pop('AST'),
                 ukradene=podatki.pop('STL'),
-                tocke=podatki.pop('PTS')
+                tocke=podatki.pop('PTS'),
             )
 
 
