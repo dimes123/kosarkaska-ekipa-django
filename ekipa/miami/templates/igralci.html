@@ -6,7 +6,7 @@
 <ol>
   {% for igralec in igralci %}
     <li>
-      <a href="#">
+      <a href="{% url 'igralec' igralec.id %}">
         {{ igralec.ime }} ({{ igralec.stevilka }}.) <small>{{ igralec.pozicija }}</small>
       </a>
     </li>

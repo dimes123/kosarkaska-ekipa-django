@@ -35,7 +35,7 @@ class Ekipa(models.Model):
         verbose_name_plural = "Ekipe"
 
     def __str__(self):
-        return '{}:{}'.format(self.kratica, self.ime)
+        return '{}: {}'.format(self.kratica, self.ime)
 
 
 
