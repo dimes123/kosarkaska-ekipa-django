@@ -23,6 +23,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('igralci/', views.igralci, name='igralci'),
     path('igralci/<int:id>/', views.igralec, name='igralec'),
+    path('ekipa/', views.ekipa, name='ekipa'),
+    path('povprecja/', views.povprecja, name='povprecja'),
     path('admin/', admin.site.urls),
 
 

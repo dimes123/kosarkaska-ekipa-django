@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p> Izberi igralca za akterega želiš dobiti povprečja: </p>
+
+<form action="{% url 'povpigralec' %}" method="get">
+
+  <label for="exampleSelect1">Igralci:</label>
+  <div class = "form-row">
+    <div class = "col-xs-3 col-md-3">
+        <select class="form-control", name='igralci'>
+        {% for igralec in vsi_igralci %}
+            <option value="{{igralec.ime}}">{{igralec.ime}}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class = "col-xs-3 col-md-3">
+        <input type="submit" value="Povprečje igralca" class="btn btn-primary">
+    </div>
+  </div>
+<form/>
+
+
+{% endblock %}
