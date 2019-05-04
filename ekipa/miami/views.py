@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from miami.models import *
 from django.db.models import Avg, Max
+from django import forms
 
 def index(request):
     return render(request, 'index.html', {
@@ -31,17 +32,16 @@ def ekipa(request):
     })
 
 def povprecja(request):
-    igralci = Igralec.objects.all()
-    print(igralci)
+    igralci = Igralec.objects.all().order_by('stevilka')
     return render(request,'povprecja.html', {
                     'vsi_igralci': igralci
     })
 
 def povpigralec(request, id):
+    print("nekaj")
     igralec = get_object_or_404(Igralec, pk=id)
     maximum = igralec.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
     average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
-    print(average)
     return render(request, 'povpigralec.html', {
                     'igralec': igralec,
                     'max': maximum,
