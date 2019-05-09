@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from miami.models import *
 from django.db.models import Avg, Max
 from django import forms
@@ -34,15 +34,16 @@ def ekipa(request):
     })
 
 def povprecja(request):
-    form = PovpForm(request.POST)
-    return render(request,'povprecja.html', {
-                    'form': form
-    })
+    id_igralca = request.GET.get('igralec')
+    if id_igralca is None:
+        return render(request,'povprecja.html', {
+            'form': PovpForm()
+        })
+    else:
+        return redirect('povpigralec', id_igralca)
 
-def povpigralec(request):
-    ime = request.POST.get('igralec')
-    print(ime)
-    igralec = get_object_or_404(Igralec, ime=ime)
+def povpigralec(request, id):
+    igralec = get_object_or_404(Igralec, id=id)
     maximum = igralec.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
     average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
     return render(request, 'povpigralec.html', {
