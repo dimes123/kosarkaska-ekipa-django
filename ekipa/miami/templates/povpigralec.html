@@ -1,4 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
-Neki
+<head>
+    <style>
+    table {
+      width:80%;
+    }
+    table td, table th {
+      border: 1px solid black;
+      text-align: center;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    .column {
+      float: left;
+      width: 40%;
+      padding: 10px;
+    }
+    </style>
+</head>
+<body>
+    <h2>{{igralec.ime}} - Statistika igralca </h2>
+    <br>
+    <div class="row">
+        <div class="column">
+            <p>
+                <img src="{{ igralec.slika.url }}" width="50%", height="50%"/>
+            </p>
+        </div>
+        <div class="colum" style="align-self:left;">
+            <h4>Povprečja igralca: </h4>
+            <p>
+                <ol>
+                    <li>
+                        <b>Skoki</b>: {{avg.skoki__avg}}
+                    </li>
+                    <li>
+                        <b>Podaje</b>: {{avg.podaje__avg}}
+                    </li>
+                    <li>
+                        <b>Ukradene</b>: {{avg.ukradene__avg}}
+                    </li>
+                    <li>
+                        <b>Točke</b>: {{avg.tocke__avg}}
+                    </li>
+                </ol>
+            </p>
+        </div>
+        <div class="colum" style="align:right;">
+            <h4>Najboljši dosežki igralca</h4>
+            <p>
+                    <ol>
+                        <li>
+                            <b>Skoki</b>: {{max.skoki__max}}
+                        </li>
+                        <li>
+                            <b>Podaje</b>: {{max.podaje__max}}
+                        </li>
+                        <li>
+                            <b>Ukradene</b>: {{max.ukradene__max}}
+                        </li>
+                        <li>
+                            <b>Točke</b>: {{max.tocke__max}}
+                        </li>
+                    </ol>
+                </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <a class="btn btn-warning" href="/povprecja/" role="button">Nova Poizvedba</a>
+    </div>
+</body>
+
+</html>
 {% endblock %}

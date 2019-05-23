@@ -5,6 +5,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from .forms import PovpForm
 
+
 def index(request):
     return render(request, 'index.html', {
         'title': 'Miami Heat igralci',
@@ -46,8 +47,10 @@ def povpigralec(request, id):
     igralec = get_object_or_404(Igralec, id=id)
     maximum = igralec.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
     average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
+    print(average)
     return render(request, 'povpigralec.html', {
                     'igralec': igralec,
                     'max': maximum,
                     'avg': average,
     })
+
