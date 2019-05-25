@@ -29,6 +29,7 @@ urlpatterns = [
     path('povpigralec/<int:id>/', views.povpigralec, name='povpigralec'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('signup/', views.signup, name='registracija'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

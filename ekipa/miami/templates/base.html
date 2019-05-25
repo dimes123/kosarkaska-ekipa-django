@@ -22,17 +22,17 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+      <div class="navbar-nav">
         {% if user.is_authenticated %}
         Hi {{ user.username }}!
         <p><a href="{% url 'logout' %}">logout</a></p>
         {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">login</a>
+        <div align="right">
+        <a href="{% url 'login' %}">Prijava</a>
+        <a href="{% url 'registracija' %}">Registracija</a>
+        </div>
         {% endif %}
-    </div>
-    </div>
+      </div>
     </nav>
   <main class="container">
     {% block content %}
