@@ -51,11 +51,11 @@
       </ol>
     </p>
   </div>
-
+  {% if user.is_authenticated %}
   <form method = 'post' role = 'form' class = "form-horizontal">
     <button type="submit" class="btn btn-danger" value = "Submit/">Odstrani</button>
   </form>
-
+  {% endif %}
 </div>
 
 <br />
