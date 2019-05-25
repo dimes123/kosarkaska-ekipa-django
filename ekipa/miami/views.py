@@ -3,7 +3,7 @@ from miami.models import *
 from django.db.models import Avg, Max
 from django import forms
 from django.http import HttpResponseRedirect
-from .forms import PovpForm
+from .forms import PovpForm, DateForm
 
 
 def index(request):
@@ -28,11 +28,24 @@ def igralec(request, id):
 def ekipa(request):
     podatki = get_object_or_404(Ekipa, kratica='MIA')
     seznam_igralcev = Igralec.objects.all().order_by('stevilka')
-    print(seznam_igralcev)
-    return render(request, 'ekipa.html', {
-                    'podatki_o_ekipi': podatki,
-                    'seznam_igralcev': seznam_igralcev,
-    })
+    zacetek = request.GET.get('zacetniDan')
+    konec = request.GET.get('koncniDan')
+    print(zacetek,konec)
+    print()
+    if zacetek is None or konec is None:
+        return render(request, 'ekipa.html', {
+                        'podatki_o_ekipi': podatki,
+                        'seznam_igralcev': seznam_igralcev,
+                        'form': DateForm(),
+        })
+    else:
+        return redirect('tekme', zacetek, konec)
+
+def tekme(request, zacetek, konec):
+    return render(request, 'tekme.html', {
+        'zacetek': zacetek,
+        'konec': konec,
+        })
 
 def povprecja(request):
     id_igralca = request.GET.get('igralec')

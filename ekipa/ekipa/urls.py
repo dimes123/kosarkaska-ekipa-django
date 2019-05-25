@@ -25,6 +25,7 @@ urlpatterns = [
     path('igralci/<int:id>/', views.igralec, name='igralec'),
     path('ekipa/', views.ekipa, name='ekipa'),
     path('povprecja/', views.povprecja, name='povprecja'),
+    path('tekme/', views.tekme, name='tekme'),
     path('povpigralec/<int:id>/', views.povpigralec, name='povpigralec'),
     path('admin/', admin.site.urls),
 
