@@ -116,7 +116,7 @@ def najboljsiNaDatum(request, datum):
     najvec_skoki_igralec = Igralec.objects.filter(id = najvec_skoki.igralec_id)
     najvec_ukradenih_igralec = Igralec.objects.filter(id = najvec_ukradenih.igralec_id)
 
-    najboljsi_dosezki = [('Najvel točk: ',najvec_tock_igralec[0].ime,najvec_tock.tocke),
+    najboljsi_dosezki = [('Največ točk: ',najvec_tock_igralec[0].ime,najvec_tock.tocke),
                         ('Največ skokov: ',najvec_skoki_igralec[0].ime,najvec_skoki.skoki),
                         ('Največ podaj: ',najvec_podaj_igralec[0].ime,najvec_podaj.podaje),
                         ('Največ ukradenih:',najvec_ukradenih_igralec[0].ime, najvec_ukradenih.ukradene)]
