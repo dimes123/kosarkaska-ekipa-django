@@ -61,9 +61,6 @@ def tekme(request):
     return render(request, 'tekme.html', {
         })
 
-def tekmeMedDatumoma(request, zacetek, konec):
-    
-
 def povprecja(request):
     id_igralca = request.GET.get('igralec')
     if id_igralca is None:
