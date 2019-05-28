@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+To so dosežki na tekmi odigrani na datum: {{datum}}
+<ol>
+    {% for dosezek in dosezki %}
+        <li><b>{{dosezek.0}}</b>  {{dosezek.1}} : {{dosezek.2}}</li>
+    {% endfor %}
+</ol>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script> 
+
+<button onclick="goBack()" class="btn btn-danger">Ostale tekme</button>
+
+{% endblock %}

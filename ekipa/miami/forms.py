@@ -21,3 +21,9 @@ class DateForm(forms.Form):
             'data-target': '#datetimepicker2'
         })
     )
+
+class najboljsiIgralecForm(forms.Form):
+    ekipe = Ekipa.objects.all()
+    choices = [(ekipa.id, ekipa.ime) for ekipa in ekipe]
+    ekipa = forms.ChoiceField(choices=choices, widget=forms.Select(), required=False)
+

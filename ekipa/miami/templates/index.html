@@ -27,7 +27,7 @@ Izbirate lahko med 9-imi rednimi igralci v tej sezoni, kjer je za vsakega od nji
     <a href="{% url 'povprecja' %}" class="btn btn-secondary" role="button" aria-pressed="true">Povprečja</a>
   </div>
   <div class="btn-group  mr-4" role="group" aria-label="Forth group">
-    <a class = "btn btn-secondary" href = "#">Najboljši igralec</a>
+    <a class = "btn btn-secondary" href = "{% url 'najboljsiIgralec' %}">Najboljši igralec</a>
   </div>
   {% if user.is_authenticated %}
   <div class="btn-group  mr-4" role="group" aria-label="Fifth group">

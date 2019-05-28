@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if prikazi == 1 %}
+<p>Najprej izberi ekipo:</p>
+<form>
+    <div class = "form-row">
+      <div class = "col-xs-3 col-md-3">
+        {% csrf_token %}
+        {{form}}
+      </div>
+      <div class = "col-xs-3 col-md-3">
+          <input type="submit" value="Izberi ekipo" class="btn btn-primary">
+      </div>
+  </div>
+</form>
+{% endif %}
+{% if prikazi == 2 %}
+<p>Naša ekipa je z ekipo {{nasprotnik}} odigrala tekme na naslednjih datumih:</p>
+{% for el in datumi %}
+<li><a href="{% url 'najboljsiNaDatum' el.datum %}">{{el.datum}}</a></li>
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}

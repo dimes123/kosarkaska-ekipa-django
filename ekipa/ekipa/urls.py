@@ -30,6 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', views.signup, name='registracija'),
+    path('najboljsi/',views.najboljsi, name='najboljsiIgralec'),
+    path('najboljsiNaDatum/<str:datum>', views.najboljsiNaDatum, name='najboljsiNaDatum')
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

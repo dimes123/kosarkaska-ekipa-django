@@ -3,7 +3,7 @@ from miami.models import *
 from django.db.models import Avg, Max
 from django import forms
 from django.http import HttpResponseRedirect
-from .forms import PovpForm, DateForm
+from .forms import PovpForm, DateForm, najboljsiIgralecForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -83,3 +83,45 @@ def povpigralec(request, id):
                     'avg': average,
     })
 
+def najboljsi(request):
+    ekipa = request.GET.get('ekipa')
+    prikazi = 1
+    if ekipa is None:
+        return render(request,'najboljsi.html',{
+            'form': najboljsiIgralecForm(),
+            'prikazi': prikazi,
+        })
+    else:
+        prikazi = 2
+        nasprotnik = list(Ekipa.objects.filter(id = ekipa))
+        datumi = Tekma.objects.filter(nasprotnik = ekipa)
+        print(type(datumi))
+        return render(request, 'najboljsi.html',{
+            'prikazi':prikazi,
+            'nasprotnik': nasprotnik[0].ime,
+            'datumi':datumi,
+        })
+
+def najboljsiNaDatum(request, datum):
+    id_tekme = list(Tekma.objects.filter(datum = datum))
+    id_tekme = id_tekme[0].id
+    
+    najvec_tock = Statistika.objects.filter(tekma_id = id_tekme).order_by('-tocke').first()
+    najvec_podaj = Statistika.objects.filter(tekma_id = id_tekme).order_by('-podaje').first()
+    najvec_skoki = Statistika.objects.filter(tekma_id = id_tekme).order_by('-skoki').first()
+    najvec_ukradenih = Statistika.objects.filter(tekma_id = id_tekme).order_by('-ukradene').first()
+    
+    najvec_tock_igralec = Igralec.objects.filter(id = najvec_tock.igralec_id)
+    najvec_podaj_igralec = Igralec.objects.filter(id = najvec_podaj.igralec_id)
+    najvec_skoki_igralec = Igralec.objects.filter(id = najvec_skoki.igralec_id)
+    najvec_ukradenih_igralec = Igralec.objects.filter(id = najvec_ukradenih.igralec_id)
+
+    najboljsi_dosezki = [('Najvel točk: ',najvec_tock_igralec[0].ime,najvec_tock.tocke),
+                        ('Največ skokov: ',najvec_skoki_igralec[0].ime,najvec_skoki.skoki),
+                        ('Največ podaj: ',najvec_podaj_igralec[0].ime,najvec_podaj.podaje),
+                        ('Največ ukradenih:',najvec_ukradenih_igralec[0].ime, najvec_ukradenih.ukradene)]
+    print(najboljsi_dosezki)
+    return render(request, 'najboljsiNaDatum.html',{
+                            'dosezki':najboljsi_dosezki,
+                            'datum':datum,
+    })
