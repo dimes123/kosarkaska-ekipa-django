@@ -29,9 +29,13 @@ urlpatterns = [
     path('povpigralec/<int:id>/', views.povpigralec, name='povpigralec'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+<<<<<<< HEAD
     path('signup/', views.signup, name='registracija'),
     path('najboljsi/',views.najboljsi, name='najboljsiIgralec'),
     path('najboljsiNaDatum/<str:datum>', views.najboljsiNaDatum, name='najboljsiNaDatum')
+=======
+    path('registracija/', views.registracija, name='registracija'),
+>>>>>>> bd55aa5902b226f5e465d651bfbab50b5f8960f2
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
