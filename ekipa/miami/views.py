@@ -57,11 +57,12 @@ def ekipa(request):
     else:
         return redirect('tekme', zacetek, konec)
 
-def tekme(request, zacetek, konec):
+def tekme(request):
     return render(request, 'tekme.html', {
-        'zacetek': zacetek,
-        'konec': konec,
         })
+
+def tekmeMedDatumoma(request, zacetek, konec):
+    
 
 def povprecja(request):
     id_igralca = request.GET.get('igralec')
