@@ -7,15 +7,15 @@ class PovpForm(forms.Form):
     igralec = forms.ChoiceField(choices=choices, widget=forms.Select(), required=False)
 
 class DateForm(forms.Form):
-    zacetniDan = forms.DateTimeField(
+    zacetni_Dan = forms.DateTimeField(
         input_formats=['%d/%m/%Y'],
         widget=forms.DateTimeInput(attrs={
             'class': 'form-control datetimepicker-input',
             'data-target': '#datetimepicker1'
         })
     )
-    koncniDan = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M'],
+    koncni_Dan = forms.DateTimeField(
+        input_formats=['%d/%m/%Y'],
         widget=forms.DateTimeInput(attrs={
             'class': 'form-control datetimepicker-input',
             'data-target': '#datetimepicker2'
