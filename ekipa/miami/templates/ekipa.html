@@ -74,17 +74,11 @@
 
 
 <h2>Tekme med dvema datumoma</h2>
-
-<form>
+<form method="post">
 <center>
-<div class="form-group row">
-  <div class="col-2.5">
-    {% csrf_token %}
-    {{form}}
-  </div>
-</div>
-<input type="submit" value="Prikaži tekme"  class="btn btn-primary">
-
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
 </center>
 </form>
 
