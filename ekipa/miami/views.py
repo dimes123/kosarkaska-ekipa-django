@@ -131,7 +131,7 @@ def najboljsiNaDatum(request, datum):
 
 def dodajanje(request):
     if request.POST:
-        form = IgralecForm(request.POST)
+        form = IgralecForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/igralci/')
