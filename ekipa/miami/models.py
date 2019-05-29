@@ -17,7 +17,7 @@ class Igralec(models.Model):
     teza = models.PositiveSmallIntegerField(help_text="Teža igralca")
     visina = models.CharField(max_length=200, help_text="Višina igralca")
     leto_rojstva = models.PositiveSmallIntegerField(help_text="Leto rojstva igralca")
-    slika = models.ImageField(upload_to="igralci/", default="media/igralci/missing.jpg")
+    slika = models.ImageField(upload_to="igralci/", default="igralci/missing.jpg")
 
     class Meta:
         verbose_name_plural = 'igralci'

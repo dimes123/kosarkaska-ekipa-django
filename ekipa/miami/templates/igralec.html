@@ -52,9 +52,7 @@
     </p>
   </div>
   {% if user.is_authenticated %}
-  <form method = 'post' role = 'form' class = "form-horizontal">
-    <button type="submit" class="btn btn-danger" value = "Submit/">Odstrani</button>
-  </form>
+    <a href="{% url 'brisanje' igralec.id %}"><button class = "btn btn-secondary" type="button"> Izbriši</button></a> 
   {% endif %}
 </div>
 

@@ -41,6 +41,11 @@ def igralec(request, id):
         'statistika': statistika,
     })
 
+def brisanje(request, id):
+    igralec = get_object_or_404(Igralec, id=id)
+    igralec.delete()
+    return HttpResponseRedirect('/igralci/')
+
 def ekipa(request):
     podatki = get_object_or_404(Ekipa, kratica='MIA')
     seznam_igralcev = Igralec.objects.all().order_by('stevilka')
