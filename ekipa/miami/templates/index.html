@@ -31,7 +31,7 @@ Izbirate lahko med 9-imi rednimi igralci v tej sezoni, kjer je za vsakega od nji
   </div>
   {% if user.is_authenticated %}
   <div class="btn-group  mr-4" role="group" aria-label="Fifth group">
-    <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Dodajanje igralca</a>
+    <a class = "btn btn-secondary" href = "{% url 'dodajanje' %}">Dodaj igralca</a>
   </div>
   {% endif %}
 </div>

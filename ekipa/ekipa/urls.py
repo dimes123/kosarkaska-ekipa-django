@@ -29,6 +29,7 @@ urlpatterns = [
     path('povpigralec/<int:id>/', views.povpigralec, name='povpigralec'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('dodajanje/', views.dodajanje, name='dodajanje'),
 
     path('najboljsi/',views.najboljsi, name='najboljsiIgralec'),
     path('najboljsiNaDatum/<str:datum>', views.najboljsiNaDatum, name='najboljsiNaDatum'),

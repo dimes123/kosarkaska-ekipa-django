@@ -27,3 +27,8 @@ class najboljsiIgralecForm(forms.Form):
     choices = [(ekipa.id, ekipa.ime) for ekipa in ekipe]
     ekipa = forms.ChoiceField(choices=choices, widget=forms.Select(), required=False)
 
+class IgralecForm(forms.ModelForm):
+
+    class Meta:
+        model = Igralec
+        fields = ['stevilka', 'ime', 'pozicija', 'teza', 'visina', 'leto_rojstva', 'slika',]

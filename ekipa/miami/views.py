@@ -3,7 +3,7 @@ from miami.models import *
 from django.db.models import Avg, Max
 from django import forms
 from django.http import HttpResponseRedirect
-from .forms import PovpForm, DateForm, najboljsiIgralecForm
+from .forms import PovpForm, DateForm, najboljsiIgralecForm, IgralecForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -123,3 +123,18 @@ def najboljsiNaDatum(request, datum):
                             'dosezki':najboljsi_dosezki,
                             'datum':datum,
     })
+
+def dodajanje(request):
+    if request.POST:
+        form = IgralecForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/igralci/')
+    else:
+        form = IgralecForm()
+    
+    args = {}
+    args.update(request)
+    args['form'] = form
+
+    return render(request, 'dodajanje.html', args)
