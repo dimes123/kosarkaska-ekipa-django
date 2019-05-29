@@ -3,7 +3,7 @@ from miami.models import *
 from django.db.models import Avg, Max
 from django import forms
 from django.http import HttpResponseRedirect
-from .forms import PovpForm, DateForm, najboljsiIgralecForm, IgralecForm
+from .forms import PovpForm, DatumForm, najboljsiIgralecForm, IgralecForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -49,21 +49,20 @@ def brisanje(request, id):
 def ekipa(request):
     podatki = get_object_or_404(Ekipa, kratica='MIA')
     seznam_igralcev = Igralec.objects.all().order_by('stevilka')
-    zacetek = request.GET.get('zacetniDan')
-    konec = request.GET.get('koncniDan')
-    print(zacetek,konec)
-    print()
+    zacetek = request.GET.get('zacetek')
+    konec = request.GET.get('konec')
     if zacetek is None or konec is None:
         return render(request, 'ekipa.html', {
                         'podatki_o_ekipi': podatki,
                         'seznam_igralcev': seznam_igralcev,
-                        'form': DateForm(),
+                        'form': DatumForm(),
         })
     else:
         return redirect('tekme', zacetek, konec)
 
 def tekme(request):
     return render(request, 'tekme.html', {
+                        'form': DatumForm,
         })
 
 def povprecja(request):
@@ -79,7 +78,6 @@ def povpigralec(request, id):
     igralec = get_object_or_404(Igralec, id=id)
     maximum = igralec.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
     average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
-    print(average)
     return render(request, 'povpigralec.html', {
                     'igralec': igralec,
                     'max': maximum,
@@ -98,7 +96,6 @@ def najboljsi(request):
         prikazi = 2
         nasprotnik = list(Ekipa.objects.filter(id = ekipa))
         datumi = Tekma.objects.filter(nasprotnik = ekipa)
-        print(type(datumi))
         return render(request, 'najboljsi.html',{
             'prikazi':prikazi,
             'nasprotnik': nasprotnik[0].ime,
