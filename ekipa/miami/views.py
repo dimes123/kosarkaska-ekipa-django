@@ -133,11 +133,10 @@ def dodajanje(request):
     if request.POST:
         form = IgralecForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/igralci/')
+            igralec = form.save()
+            return redirect('igralec', id=igralec.id)
     else:
         form = IgralecForm()
-    
     args = {}
     args.update(request)
     args['form'] = form
