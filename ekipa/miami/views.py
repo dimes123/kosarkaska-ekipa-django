@@ -60,7 +60,7 @@ def ekipa(request):
     else:
         return redirect('tekme', zacetek, konec)
 
-def tekme(request):
+def tekme(request, zacetek, konec):
     return render(request, 'tekme.html', {
                         'form': DatumForm,
         })
@@ -76,7 +76,7 @@ def povprecja(request):
 
 def povpigralec(request, id):
     igralec = get_object_or_404(Igralec, id=id)
-    maximum = igralec.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
+    maximum = igralec.maximum()
     average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
     return render(request, 'povpigralec.html', {
                     'igralec': igralec,
@@ -86,37 +86,22 @@ def povpigralec(request, id):
 
 def najboljsi(request):
     ekipa = request.GET.get('ekipa')
-    prikazi = 1
     if ekipa is None:
-        return render(request,'najboljsi.html',{
+        return render(request,'najboljsi_form.html',{
             'form': najboljsiIgralecForm(),
-            'prikazi': prikazi,
         })
     else:
-        prikazi = 2
         nasprotnik = list(Ekipa.objects.filter(id = ekipa))
         datumi = Tekma.objects.filter(nasprotnik = ekipa)
-        return render(request, 'najboljsi.html',{
-            'prikazi':prikazi,
+        return render(request, 'najboljsi_rezultat.html',{
             'nasprotnik': nasprotnik[0].ime,
             'datumi':datumi,
         })
 
 def najboljsiNaDatum(request, datum):
-    id_tekme = list(Tekma.objects.filter(datum = datum))
-    id_tekme = id_tekme[0].id
-    
-    najvec_tock = Statistika.objects.filter(tekma_id = id_tekme).order_by('-tocke').first()
-    najvec_podaj = Statistika.objects.filter(tekma_id = id_tekme).order_by('-podaje').first()
-    najvec_skoki = Statistika.objects.filter(tekma_id = id_tekme).order_by('-skoki').first()
-    najvec_ukradenih = Statistika.objects.filter(tekma_id = id_tekme).order_by('-ukradene').first()
-    
-    najvec_tock_igralec = Igralec.objects.filter(id = najvec_tock.igralec_id)
-    najvec_podaj_igralec = Igralec.objects.filter(id = najvec_podaj.igralec_id)
-    najvec_skoki_igralec = Igralec.objects.filter(id = najvec_skoki.igralec_id)
-    najvec_ukradenih_igralec = Igralec.objects.filter(id = najvec_ukradenih.igralec_id)
+    tekma = Tekma.objects.get(datum=datum)
 
-    najboljsi_dosezki = [('Največ točk: ',najvec_tock_igralec[0].ime,najvec_tock.tocke),
+    najboljsi_dosezki = [('Največ točk: ', tekma.najboljsi_igralec('tocke')),
                         ('Največ skokov: ',najvec_skoki_igralec[0].ime,najvec_skoki.skoki),
                         ('Največ podaj: ',najvec_podaj_igralec[0].ime,najvec_podaj.podaje),
                         ('Največ ukradenih:',najvec_ukradenih_igralec[0].ime, najvec_ukradenih.ukradene)]

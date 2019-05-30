@@ -2,8 +2,9 @@ from django import forms
 from miami.models import *
 
 class PovpForm(forms.Form):
-    igralci = Igralec.objects.all().order_by('stevilka')
-    choices = [(igralec.id, igralec.ime) for igralec in igralci]
+    def choices():
+        igralci = Igralec.objects.all().order_by('stevilka')
+        return [(igralec.id, igralec.ime) for igralec in igralci]
     igralec = forms.ChoiceField(choices=choices, widget=forms.Select(), required=False)
 
 class DatumForm(forms.Form):
@@ -23,12 +24,15 @@ class DatumForm(forms.Form):
     )
 
 class najboljsiIgralecForm(forms.Form):
-    ekipe = Ekipa.objects.all()
-    choices = [(ekipa.id, ekipa.ime) for ekipa in ekipe]
+    def choices():
+        ekipe = Ekipa.objects.all()
+        return [(ekipa.id, ekipa.ime) for ekipa in ekipe]
     ekipa = forms.ChoiceField(choices=choices, widget=forms.Select(), required=False)
 
 class IgralecForm(forms.ModelForm):
-
     class Meta:
         model = Igralec
-        fields = ['stevilka', 'ime', 'pozicija', 'teza', 'visina', 'leto_rojstva', 'slika',]
+        fields = ['stevilka', 'ime', 'pozicija', 'teza', 'visina', 'leto_rojstva', 'slika', 'od', 'do']
+        widgets = {
+            'od': forms.DateInput(attrs={'type': 'date'})
+        }

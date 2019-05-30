@@ -1,4 +1,14 @@
+from datetime import date
 from django.db import models
+
+
+class IgralecQuerySet(models.QuerySet):
+    def v_sezoni(self, leto):
+        return self.exclude(
+            do__lt=date(leto - 1, 10, 1)
+        ).exclude(
+            od__gt=date(leto, 9, 30)
+        )
 
 
 class Igralec(models.Model):
@@ -18,12 +28,18 @@ class Igralec(models.Model):
     visina = models.CharField(max_length=200, help_text="Višina igralca")
     leto_rojstva = models.PositiveSmallIntegerField(help_text="Leto rojstva igralca")
     slika = models.ImageField(upload_to="igralci/", default="igralci/missing.jpg")
+    od = models.DateField()
+    do = models.DateField(blank=True, null=True)
+    objects = IgralecQuerySet.as_manager()
 
     class Meta:
         verbose_name_plural = 'igralci'
 
     def __str__(self):
         return '{}:{}'.format(self.ime, self.stevilka)
+    
+    def maximum(self):
+        return self.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
 
 
 class Ekipa(models.Model):
@@ -54,6 +70,9 @@ class Tekma(models.Model):
 
     def __str__(self):
         return '{}: {}'.format(self.datum, self.nasprotnik)
+
+    def najboljsi_igralec(self, atribut):
+        return self.statistika_tekma.order_by(atribut).last().igralec
 
 
 class Statistika(models.Model):
