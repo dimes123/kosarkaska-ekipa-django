@@ -11,6 +11,7 @@ class DatumForm(forms.Form):
     zacetni_datum = forms.DateField(
         widget=forms.DateInput(attrs={
             'type': 'date',
+            'value': '2017-10-18',
             'min': '2017-10-18',
             'max': '2018-04-11',
         })
@@ -18,6 +19,7 @@ class DatumForm(forms.Form):
     koncni_datum = forms.DateField(
         widget=forms.DateInput(attrs={
             'type': 'date',
+            'value': '2018-04-11',
             'min': '2017-10-18',
             'max': '2018-04-11',
         })

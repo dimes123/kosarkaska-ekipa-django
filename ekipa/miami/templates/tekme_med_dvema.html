@@ -1,6 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p>nekaj</p>
+<head>
+<style>
+table
+{
+    width:80%;
+}
+table td, table th {
+  border: 1px solid black;
+  text-align: center;
+}
+h2 {
+    text-align: center;
+}
+</style>
+</head>
+
+<body>
+<h1 class = "title is-3 is-spaced"> Tekme </h1>
+
+<p> Izbrali ste tekme med {{ zacetek }} in {{ konec }}. <p/>
+<p>  V tem obdobju je Miami Heat igral naslednje tekme: <p/>
+
+<br/>
+
+<br/>
+<table class="table table-hover table-sortable">
+<thead class="thead-dark">
+<tr>
+    <th>Datum</th>
+    <th>Nasprotnik</th>
+    <th>Točke Miami</th>
+    <th>Točke nasprotnik</th>
+</tr>
+</thead>
+    {% for tekma in tekme %}
+    <tr>
+    <td>{{ tekma.datum }}</td>
+    <td>{{ tekma.nasprotnik }}</td>
+    <td>{{ tekma.tocke_ekipa }}</td>
+    <td>{{ tekma.tocke_nasprotne }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br/>
+
+<body/>
 
 {% endblock %}

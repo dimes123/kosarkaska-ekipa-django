@@ -47,22 +47,31 @@ def brisanje(request, id):
     return HttpResponseRedirect('/igralci/')
 
 def ekipa(request):
-    podatki = get_object_or_404(Ekipa, kratica='MIA')
+    ekipa = get_object_or_404(Ekipa, kratica='MIA')
     seznam_igralcev = Igralec.objects.all().order_by('stevilka')
-    zacetek = request.GET.get('zacetek')
-    konec = request.GET.get('konec')
-    if zacetek is None or konec is None:
+
+    if request.POST:
+        zacetek = request.POST.get('zacetni_datum')
+        konec = request.POST.get('koncni_datum')
+        print(zacetek, konec)
+        tekme = Tekma.objects.filter(datum__range=[zacetek, konec])
+        return render(request, 'tekme_med_dvema.html', {
+                      'zacetek': zacetek,
+                      'konec': konec,
+                      'form': DatumForm(),
+                      'tekme': tekme  
+        })
+    else:
         return render(request, 'ekipa.html', {
-                        'podatki_o_ekipi': podatki,
+                        'podatki_o_ekipi': ekipa,
                         'seznam_igralcev': seznam_igralcev,
                         'form': DatumForm(),
         })
-    else:
-        return redirect('tekme', zacetek, konec)
 
 def tekme(request, zacetek, konec):
     return render(request, 'tekme_med_dvema.html', {
-                        'form': DatumForm,
+                      'zacetek': zacetek,
+                      'konec': konec,  
         })
 
 def povprecja(request):
