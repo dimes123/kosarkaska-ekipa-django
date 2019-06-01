@@ -61,7 +61,7 @@ def ekipa(request):
         return redirect('tekme', zacetek, konec)
 
 def tekme(request, zacetek, konec):
-    return render(request, 'tekme.html', {
+    return render(request, 'tekme_med_dvema.html', {
                         'form': DatumForm,
         })
 
@@ -101,12 +101,12 @@ def najboljsi(request):
 def najboljsiNaDatum(request, datum):
     tekma = Tekma.objects.get(datum=datum)
 
-    najboljsi_dosezki = [('Največ točk: ', tekma.najboljsi_igralec('tocke')),
+    igralci = [('Največ točk: ', tekma.najboljsi_igralec('tocke')),
                         ('Največ skokov: ', tekma.najboljsi_igralec('skoki')),
                         ('Največ podaj: ', tekma.najboljsi_igralec('podaje')),
                         ('Največ ukradenih:', tekma.najboljsi_igralec('ukradene'))]
-    return render(request, 'najboljsiNaDatum.html',{
-                            'dosezki':najboljsi_dosezki,
+    return render(request, 'najboljsi_na_datum.html',{
+                            'dosezki': igralci,
                             'datum':datum,
     })
 

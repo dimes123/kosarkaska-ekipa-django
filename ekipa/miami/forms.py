@@ -9,17 +9,17 @@ class PovpForm(forms.Form):
 
 class DatumForm(forms.Form):
     zacetni_datum = forms.DateField(
-        input_formats=['%d/%m/%Y'],
         widget=forms.DateInput(attrs={
-            'class': 'form-control datetimepicker-input',
-            'data-target': '#datetimepicker1'
+            'type': 'date',
+            'min': '2017-10-18',
+            'max': '2018-04-11',
         })
     )
     koncni_datum = forms.DateField(
-        input_formats=['%d/%m/%Y'],
         widget=forms.DateInput(attrs={
-            'class': 'form-control datetimepicker-input',
-            'data-target': '#datetimepicker2'
+            'type': 'date',
+            'min': '2017-10-18',
+            'max': '2018-04-11',
         })
     )
 
@@ -34,5 +34,6 @@ class IgralecForm(forms.ModelForm):
         model = Igralec
         fields = ['stevilka', 'ime', 'pozicija', 'teza', 'visina', 'leto_rojstva', 'slika', 'od', 'do']
         widgets = {
-            'od': forms.DateInput(attrs={'type': 'date'})
+            'od': forms.DateInput(attrs={'type': 'date'}),
+            'do': forms.DateInput(attrs={'type': 'date'})
         }
