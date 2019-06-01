@@ -77,7 +77,7 @@ def povprecja(request):
 def povpigralec(request, id):
     igralec = get_object_or_404(Igralec, id=id)
     maximum = igralec.maximum()
-    average = igralec.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
+    average = igralec.povprecje()
     return render(request, 'povpigralec.html', {
                     'igralec': igralec,
                     'max': maximum,
@@ -102,10 +102,9 @@ def najboljsiNaDatum(request, datum):
     tekma = Tekma.objects.get(datum=datum)
 
     najboljsi_dosezki = [('Največ točk: ', tekma.najboljsi_igralec('tocke')),
-                        ('Največ skokov: ',najvec_skoki_igralec[0].ime,najvec_skoki.skoki),
-                        ('Največ podaj: ',najvec_podaj_igralec[0].ime,najvec_podaj.podaje),
-                        ('Največ ukradenih:',najvec_ukradenih_igralec[0].ime, najvec_ukradenih.ukradene)]
-    print(najboljsi_dosezki)
+                        ('Največ skokov: ', tekma.najboljsi_igralec('skoki')),
+                        ('Največ podaj: ', tekma.najboljsi_igralec('podaje')),
+                        ('Največ ukradenih:', tekma.najboljsi_igralec('ukradene'))]
     return render(request, 'najboljsiNaDatum.html',{
                             'dosezki':najboljsi_dosezki,
                             'datum':datum,

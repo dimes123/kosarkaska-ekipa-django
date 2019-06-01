@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Naša ekipa je z ekipo {{nasprotnik}} odigrala tekme na naslednjih datumih:</p>
+{% for el in datumi %}
+<li><a href="{% url 'najboljsiNaDatum' el.datum %}">{{el.datum}}</a></li>
+{% endfor %}
+
+
+
+{% endblock %}

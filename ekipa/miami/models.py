@@ -1,5 +1,6 @@
 from datetime import date
 from django.db import models
+from django.db.models import Avg, Max
 
 
 class IgralecQuerySet(models.QuerySet):
@@ -21,14 +22,14 @@ class Igralec(models.Model):
         (CENTER, 'Center'),
     )
 
-    stevilka = models.PositiveSmallIntegerField(help_text="Številka dresa igralca")
-    ime = models.CharField(max_length=200, help_text="Ime igralca")
-    pozicija = models.CharField(max_length=200, choices=POZICIJE, help_text="Pozicija igralca")
+    stevilka = models.PositiveSmallIntegerField(unique=True, blank=False, null=False, help_text="Številka dresa igralca")
+    ime = models.CharField(unique=True, blank=False, null=False, max_length=200, help_text="Ime igralca")
+    pozicija = models.CharField(blank=False, null=False, max_length=200, choices=POZICIJE, help_text="Pozicija igralca")
     teza = models.PositiveSmallIntegerField(help_text="Teža igralca")
     visina = models.CharField(max_length=200, help_text="Višina igralca")
     leto_rojstva = models.PositiveSmallIntegerField(help_text="Leto rojstva igralca")
-    slika = models.ImageField(upload_to="igralci/", default="igralci/missing.jpg")
-    od = models.DateField()
+    slika = models.ImageField(blank=True, null=True, upload_to="igralci/", default="igralci/missing.jpg")
+    od = models.DateField(blank=False, null=False,)
     do = models.DateField(blank=True, null=True)
     objects = IgralecQuerySet.as_manager()
 
@@ -41,6 +42,8 @@ class Igralec(models.Model):
     def maximum(self):
         return self.statistika_igralec.all().aggregate(Max('skoki'), Max('podaje'), Max('ukradene'), Max('tocke'))
 
+    def povprecje(self):
+        return self.statistika_igralec.all().aggregate(Avg('skoki'),Avg('podaje'), Avg('ukradene'), Avg('tocke'))
 
 class Ekipa(models.Model):
     kratica = models.CharField(max_length=200, help_text="Kratica ekipe", unique=True)
